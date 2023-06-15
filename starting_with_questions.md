@@ -5,6 +5,29 @@ Answer the following questions and provide the SQL queries used to find the answ
 
 
 SQL Queries:
+```sql
+--to get city with the highest level of transaction revenues
+SELECT  a.city,
+	   SUM(ac.revenue) AS transactionrevenues
+FROM all_sessions_cleaned a
+JOIN analytics_cleaned ac ON a.fullvisitorid = ac.fullvisitorid
+JOIN products p ON a.productsku = p.productsku
+WHERE city != country
+AND p.productsku IN (SELECT productsku FROM all_sessions_cleaned)
+GROUP BY a.city
+ORDER BY transactionrevenues DESC
+--to get country with the highest level of transaction revenues
+SELECT  a.country,
+	   SUM(ac.revenue) AS transactionrevenues
+FROM all_sessions_cleaned a
+JOIN analytics_cleaned ac ON a.fullvisitorid = ac.fullvisitorid
+JOIN products p ON a.productsku = p.productsku
+WHERE city != country
+AND p.productsku IN (SELECT productsku FROM all_sessions_cleaned)
+GROUP BY a.country
+ORDER BY transactionrevenues DESC
+
+```
 
 
 
