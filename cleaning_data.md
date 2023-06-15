@@ -127,6 +127,8 @@ FROM (
     FROM all_sessions
 ) AS all_sessions_subquery
 WHERE rn = 1;
+--assign primary key to the fullvisitorid
+ADD constraint fullvisitorid PRIMARY KEY (fullvisitorid)
 
 
 
