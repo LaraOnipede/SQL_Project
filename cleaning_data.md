@@ -61,5 +61,31 @@ ORDER BY count_country DESC --returns 24 record where country is (not set)
 --Check for missing records in the country column
 SELECT *
 FROM all_sessions
-WHERE fullvisitorid IS NULL there are no NULL values in the column country
-```
+WHERE country IS NULL --there are no NULL values in the column country
+
+--use Sql CASE statement to impute data for instances where country is (not set)
+
+--To access the city column
+SELECT DISTINCT city 
+FROM all_sessions --there are 266 distinct cities 
+--further exploring the city column of all_sessions table
+SELECT city, COUNT(*) AS count_city
+FROM all_sessions
+GROUP BY city
+ORDER BY count_city DESC --There are 8302 records, where the city is not available in demo dataset
+--and 354 records where city is '(not set)'
+SELECT city, country
+FROM all_sessions
+WHERE city = '(not set)'
+AND country = '(not set)' --this queries returns 23 records where both city and country are not set
+--check for missing records
+SELECT *
+FROM all_sessions
+WHERE city IS NULL
+
+--use Sql CASE statement to impute data for instances where city is (not set) or not available in demo dataset
+--after exploring the all sessions table, create a new all sessions table that's cleaned and suitable for analysis
+
+
+
+
