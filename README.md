@@ -24,7 +24,12 @@ To answer questions relevant to the advancement of the ecommerce business
 (fill in what you discovered this data could tell you and how you used the data to answer those questions)
 
 ## Challenges 
-(discuss challenges you faced in the project)
+Time constraint
+Redundancy: presence of duplicates, missing values, empty columns etc
+Lack of data documentation for reference
+Inconsistencies 
 
 ## Future Goals
-(what would you do if you had more time?)
+In depth cleaning of data
+Predicts trends and patterns of sales on the website
+Identify highly converting and profitable leads and metrics
