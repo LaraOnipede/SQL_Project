@@ -80,23 +80,41 @@ ORDER BY country;
 Answer:
 **Yes, there is a pattern. majority of the orders were made from home, through youtube for most of the cities and countries**
 
-
-
-
-
-
 **Question 4: What is the top-selling product from each city/country? Can we find any pattern worthy of noting in the products sold?**
 
-
 SQL Queries:
-
-
-
+```sql
+--to get the top selling products from each city
+SELECT city, v2productname, total_sold
+FROM (
+    SELECT a.city,
+           a.v2productname,
+           SUM(ac.units_sold) AS total_sold,
+           ROW_NUMBER() OVER (PARTITION BY a.city ORDER BY SUM(ac.units_sold) DESC) AS rn
+    FROM all_sessions_cleaned a
+    JOIN analytics_cleaned ac ON a.visitid = ac.visitid
+    WHERE a.city != a.country
+    GROUP BY a.city, a.v2productname
+) AS product_subquery
+WHERE rn = 1
+ORDER BY total_sold DESC
+--to get the top selling product from each country
+SELECT country, v2productname, total_sold
+FROM (
+    SELECT a.country,
+           a.v2productname,
+           SUM(ac.units_sold) AS total_sold,
+           ROW_NUMBER() OVER (PARTITION BY a.country ORDER BY SUM(ac.units_sold) DESC) AS rn
+    FROM all_sessions_cleaned a
+    JOIN analytics_cleaned ac ON a.visitid = ac.visitid
+    WHERE a.city != a.country
+    GROUP BY a.country, a.v2productname
+) AS subquery
+WHERE rn = 1
+ORDER BY total_sold DESC
+```
 Answer:
-
-
-
-
+**the top-selling product in United States is SPF-15 slim & slender Lip Balm**
 
 **Question 5: Can we summarize the impact of revenue generated from each city/country?**
 
