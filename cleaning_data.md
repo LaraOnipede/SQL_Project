@@ -85,6 +85,48 @@ WHERE city IS NULL
 
 --use Sql CASE statement to impute data for instances where city is (not set) or not available in demo dataset
 --after exploring the all sessions table, create a new all sessions table that's cleaned and suitable for analysis
+CREATE TABLE all_sessions_cleaned AS
+SELECT fullvisitorid,
+       channelgrouping,
+       pageviews,
+       date,
+       visitid,
+       (productprice/1000000) AS productprice,
+       productsku,
+       v2productname,
+       v2productcategory,
+       CASE WHEN city = '(not set)' THEN country
+            WHEN city = 'not available in demo dataset' THEN country
+            WHEN city = '(not set)' AND country = '(not set)' THEN 'unknown'
+            ELSE city
+       END AS city,
+       CASE WHEN country = '(not set)' THEN city
+            WHEN country = '(not set)' AND city = '(not set)' THEN 'unknown'
+            ELSE country
+       END AS country
+FROM (
+    SELECT fullvisitorid,
+           channelgrouping,
+           pageviews,
+           date,
+           visitid,
+           (productprice/1000000) AS productprice,
+           productsku,
+           v2productname,
+           v2productcategory,
+           CASE WHEN city = '(not set)' THEN country
+                WHEN city = 'not available in demo dataset' THEN country
+                WHEN city = '(not set)' AND country = '(not set)' THEN 'unknown'
+                ELSE city
+           END AS city,
+           CASE WHEN country = '(not set)' THEN city
+                WHEN country = '(not set)' AND city = '(not set)' THEN 'unknown'
+                ELSE country
+           END AS country,
+           ROW_NUMBER() OVER (PARTITION BY fullvisitorid ORDER BY fullvisitorid) AS rn
+    FROM all_sessions
+) AS all_sessions_subquery
+WHERE rn = 1;
 
 
 
