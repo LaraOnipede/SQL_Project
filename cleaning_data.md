@@ -15,6 +15,7 @@ SELECT
 	  column_name, data_type
 FROM information_schema.columns
 WHERE table_name = 'all_sessions' --returns column_name and data-type for all columns in all_sessions
+
 --Explore all_sessions_table column after column
 --retrieved all data from all sessions table 
 SELECT *
@@ -27,6 +28,23 @@ SELECT fullvisitorid, COUNT(*) AS count_fullvisitor_id
 FROM all_sessions
 GROUP BY fullvisitorid
 ORDER BY count_fullvisitor_id DESC
+
+--access channelgrouping column
+SELECT DISTINCT(channelgrouping)
+FROM all_sessions --returned 7 rows, with one stated as others.
+ 
+--for further knowledge about the (Other) channel
+SELECT *
+FROM all_sessions
+WHERE channelgrouping = '(Other)' ----Returned 5 rows. 
+
+--what's the distribution like among the channels
+SELECT channelgrouping, COUNT(*) AS count_channelgrp
+FROM all_sessions
+GROUP BY channelgrouping
+ORDER BY count_channelgrp ASC
+--organic search is the channel with the highest lead to the ecommerce website
+--paid research has the lowest lead to the webiste
 
 
 
