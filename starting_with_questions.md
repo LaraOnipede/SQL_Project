@@ -62,12 +62,24 @@ Answer:
 
 **Question 3: Is there any pattern in the types (product categories) of products ordered from visitors in each city and country?**
 
-
 SQL Queries:
-
-
-
+```sql
+--to reveal pattern in types of product ordered for each city
+SELECT city, MAX(v2productcategory) AS most_popular_category, COUNT(*) AS category_count
+FROM all_sessions_cleaned
+WHERE city != country
+GROUP BY city
+ORDER BY city;
+--to reveal pattern in types of product ordered for each country
+SELECT country, MAX(v2productcategory) AS most_popular_category, COUNT(*) AS category_count
+FROM all_sessions_cleaned
+WHERE city != country
+GROUP BY country
+ORDER BY country;
+```
 Answer:
+**Yes, there is a pattern. majority of the orders were made from home, through youtube for most of the cities and countries**
+
 
 
 
