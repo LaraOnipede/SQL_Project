@@ -50,6 +50,14 @@ ORDER BY count_channelgrp ASC
 --organic search is the channel with the highest lead to the ecommerce website
 --display has the lowest lead to the webiste
 
+--To Access the country column
+SELECT DISTINCT country
+FROM all_sessions-- 136 distinct countries
+--To identify anomalies in the country column
+SELECT country, COUNT(*) AS count_country
+FROM all_sessions
+GROUP BY country
+ORDER BY count_country DESC --returns 24 record where country is (not set)
 
 
 ```
