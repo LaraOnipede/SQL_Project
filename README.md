@@ -10,11 +10,15 @@ To perform analysis on the dataset using SQL queries.
 To draw actionable insights from the data.
 
 To answer questions relevant to the advancement of the ecommerce business
-
-
 ## Process
-### (your step 1)
-### (your step 2)
+### Download ecommerce CSV files
+### Created ecommerce database and schema on PGADMIN
+### Test the e-commerce database functionality by implementing relevant sql queries
+### Establish relationship and dependencies between entities in the database
+### Explorative analysis
+### Data Cleaning and manipulations
+### Apply SQL analysis techniques to answer business questions and draw meaningful inisghts from data
+### present and communicate findings, methodologies and recommendations
 
 ## Results
 (fill in what you discovered this data could tell you and how you used the data to answer those questions)
