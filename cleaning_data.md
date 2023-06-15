@@ -129,6 +129,51 @@ FROM (
 WHERE rn = 1;
 --assign primary key to the fullvisitorid
 ADD constraint fullvisitorid PRIMARY KEY (fullvisitorid)
+```
+
+```sql
+--Accessing analytics table
+SELECT
+	  column_name, data_type
+FROM information_schema.columns
+WHERE table_name = 'analytics' -- returned the column_names and data_types in analytics
+--retrieve all data from analytics table
+SELECT *
+FROM analytics
+--explore revenue column
+SELECT revenue, COUNT(*) AS count_revenue
+FROM analytics
+GROUP BY revenue
+ORDER BY count_revenue ASC-- 
+--There are 4285767 mising records in the column
+--Create new table AS analytics_cleaned from table analytics
+CREATE TABLE analytics_cleaned AS
+SELECT a.fullvisitorid,
+		a.date,
+		a.visitid,
+		a.channelgrouping,
+		(a.unitprice/1000000) AS unitprice,
+	CASE 
+		WHEN a.revenue IS NOT NULL THEN a.revenue
+		WHEN a.revenue IS NULL THEN 7600641
+		ELSE a.revenue
+		END AS revenue
+	CASE 
+		WHEN a.units_sold IS NULL THEN 0
+		ELSE units_sold
+		END AS units_sold
+FROM analytics a
+WHERE unitprice != '0' 
+AND a.fullvisitorid IN (SELECT fullvisitorid
+					   FROM all_sessions_cleaned)
+
+--Assigned foreign key to fullvisitorid in analytics_cleaned
+ALTER TABLE analytics_cleaned
+ADD CONSTRAINT fk_fullvisitorid
+FOREIGN KEY (fullvisitorid)
+REFERENCES all_sessions_cleaned (fullvisitorid)
+
+```
 
 
 
