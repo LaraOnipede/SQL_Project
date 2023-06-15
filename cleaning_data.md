@@ -14,6 +14,20 @@ Below, provide the SQL queries you used to clean your data.
 SELECT
 	  column_name, data_type
 FROM information_schema.columns
-WHERE table_name = 'all_sessions'
---returns column_name and data-type for all columns in all_sessions
+WHERE table_name = 'all_sessions' --returns column_name and data-type for all columns in all_sessions
+--Explore all_sessions_table column after column
+--retrieved all data from all sessions table 
+SELECT *
+FROM all_sessions --returns 15134 rows
+--check for duplicates
+SELECT DISTINCT(fullvisitorid)
+FROM all_sessions--returns 14223 row, column fullvisitorid contains duplicates
+--confirm duplicates
+SELECT fullvisitorid, COUNT(*) AS count_fullvisitor_id
+FROM all_sessions
+GROUP BY fullvisitorid
+ORDER BY count_fullvisitor_id DESC
+
+
+
 ```
