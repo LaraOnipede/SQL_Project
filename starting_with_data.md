@@ -12,11 +12,15 @@ Answer:
 ### Organic search is the channel with the greatest lead
 ### Display is the channel with lowest lead
 
-
-
-Question 2: 
+Question 2: What are the top 3 countries with the highest number of visitors to the website?
 SQL Queries:
-
+```sql
+SELECT country, COUNT(*) AS count_country
+FROM all_sessions
+GROUP BY country
+ORDER BY count_country DESC
+```
+Answer:United States, India and United kingdom
 
 Question 3:
 
