@@ -127,6 +127,8 @@ FROM (
     FROM all_sessions
 ) AS all_sessions_subquery
 WHERE rn = 1;
+-- This dropped empty columns and columns that were considered unnecessary to the analysis
+
 --assign primary key to the fullvisitorid
 ADD constraint fullvisitorid PRIMARY KEY (fullvisitorid)
 ```
