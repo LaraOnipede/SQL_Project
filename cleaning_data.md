@@ -28,6 +28,10 @@ SELECT fullvisitorid, COUNT(*) AS count_fullvisitor_id
 FROM all_sessions
 GROUP BY fullvisitorid
 ORDER BY count_fullvisitor_id DESC
+--confirm miss values
+SELECT *
+FROM all_sessions
+WHERE fullvisitorid IS NULL -- no missing values for fullvisitorid column
 
 --access channelgrouping column
 SELECT DISTINCT(channelgrouping)
@@ -44,7 +48,7 @@ FROM all_sessions
 GROUP BY channelgrouping
 ORDER BY count_channelgrp ASC
 --organic search is the channel with the highest lead to the ecommerce website
---paid research has the lowest lead to the webiste
+--display has the lowest lead to the webiste
 
 
 
