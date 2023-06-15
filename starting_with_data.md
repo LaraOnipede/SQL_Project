@@ -35,15 +35,38 @@ ORDER BY total_revenue DESC
 Answer: 
 ### organic search has the highest total revenue
 
-Question 4: 
+Question 4: compare the number of unique visitors that visited the website for each month in the first half of 2017
 SQL Queries:
+```sql
+SELECT *
+FROM (SELECT EXTRACT(MONTH FROM date) AS month,
+       COUNT(DISTINCT fullvisitorid) AS unique_visitors
+	FROM all_sessions_cleaned
+	WHERE EXTRACT(YEAR FROM date) = 2017
+	GROUP BY month
+	ORDER BY month) AS visitor_permonth_2017
+WHERE month <= 6
 
+SELECT AVG(unique_visitors) AS average_unique_visitors
+FROM (SELECT EXTRACT(MONTH FROM date) AS month,
+       COUNT(DISTINCT fullvisitorid) AS unique_visitors
+	FROM all_sessions_cleaned
+	WHERE EXTRACT(YEAR FROM date) = 2017
+	GROUP BY month
+	ORDER BY month) AS visitor_permonth_2017
+WHERE month <= 6
+```
 Answer: 
+### There are about the same number of unique vistors to the website between January and June 2017
+### average number of unique visitors between jan to june 2017 are 1081
 
-
-
-Question 5: 
+Question 5: How many products are out of stock
 
 SQL Queries:
-
+```sql
+SELECT COUNT(*) AS count_out_of_stock
+FROM products
+WHERE stocklevel = 0;
+```
 Answer:
+### 190 products are out of stock
