@@ -58,6 +58,8 @@ SELECT country, COUNT(*) AS count_country
 FROM all_sessions
 GROUP BY country
 ORDER BY count_country DESC --returns 24 record where country is (not set)
-
-
+--Check for missing records in the country column
+SELECT *
+FROM all_sessions
+WHERE fullvisitorid IS NULL there are no NULL values in the column country
 ```
