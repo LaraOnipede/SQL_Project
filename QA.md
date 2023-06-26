@@ -8,7 +8,7 @@ performance testing
 QA Process:
 Describe your QA process and include the SQL queries used to execute it.
 ```SQL
---Checking for duplicates in the allsessions table.
+--Checking for duplicates in the allsessions table based on expected rows.
 SELECT *
 FROM all_sessions_cleaned --returns 14223 rows
 
