@@ -8,6 +8,10 @@ performance testing
 QA Process:
 Describe your QA process and include the SQL queries used to execute it.
 ```SQL
+--testing to confirm empty columns in the all-sessions tables have been dropped
+SELECT *
+FROM all_sessions_cleaned --- test passed, no empty columns returned
+
 --Checking for duplicates in the allsessions table based on expected rows.
 SELECT *
 FROM all_sessions_cleaned --returns 14223 rows
